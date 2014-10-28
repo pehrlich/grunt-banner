@@ -34,11 +34,17 @@ module.exports = function(grunt) {
 
                 if ( grunt.file.isFile( src ) ) {
                     typeof( options.banner ) === 'function' ? banner = options.banner( src ) : banner = options.banner;
-                    grunt.file.write( src,
-                        options.position === 'top' ? banner + linebreak + grunt.file.read( src ) : grunt.file.read( src ) + linebreak + banner
-                    );
 
-                	grunt.verbose.writeln( 'Banner added to file ' + src.cyan );
+                    if (banner){
+
+                      grunt.file.write( src,
+                          options.position === 'top' ? banner + linebreak + grunt.file.read( src ) : grunt.file.read( src ) + linebreak + banner
+                      );
+
+                    	grunt.verbose.writeln( 'Banner added to file ' + src.cyan );
+
+                    }
+
                 }
 
             });
