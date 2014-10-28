@@ -26,19 +26,25 @@ module.exports = function(grunt) {
 
         var linebreak = options.linebreak ? grunt.util.linefeed : '';
 
-			  var banner;
+        var banner;
 
         // Iterate over the list of files and add the banner or footer
         this.files.forEach( function( file ) {
             file.src.forEach( function( src ) {
 
                 if ( grunt.file.isFile( src ) ) {
-										typeof( options.banner ) === 'function' ? banner = options.banner( src ) : banner = options.banner;
-                    grunt.file.write( src,
-											options.position === 'top' ? banner + linebreak + grunt.file.read( src ) : grunt.file.read( src ) + linebreak + banner
-                    );
+                    typeof( options.banner ) === 'function' ? banner = options.banner( src ) : banner = options.banner;
 
-                	grunt.verbose.writeln( 'Banner added to file ' + src.cyan );
+                    if (banner){
+
+                      grunt.file.write( src,
+                          options.position === 'top' ? banner + linebreak + grunt.file.read( src ) : grunt.file.read( src ) + linebreak + banner
+                      );
+
+                    	grunt.verbose.writeln( 'Banner added to file ' + src.cyan );
+
+                    }
+
                 }
 
             });
